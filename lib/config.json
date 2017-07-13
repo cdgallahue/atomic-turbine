@@ -1,0 +1,5 @@
+{
+    "endpointPrefix": "/api",
+    "heartbeatExpirationTime": 3,
+    "sensorExpirationTime": 2
+}

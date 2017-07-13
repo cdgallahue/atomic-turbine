@@ -1,0 +1,8 @@
+---
+applications:
+  - name: turbine-farm
+    memory: 256M
+    buildpack: https://github.com/cloudfoundry/nodejs-buildpack.git
+    command: node server/app.js
+services:
+  - turbine-redis

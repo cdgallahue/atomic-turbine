@@ -1,0 +1,24 @@
+{
+  "name": "turbine-farm",
+  "version": "1.0.0",
+  "description": "This application serves as a 'turbine farm' in that you can connect as many turbines to it, and in turn the data for that turbine is exposed.",
+  "main": "server\\app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm install && node server/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jtviolet/turbine-farm.git"
+  },
+  "engines": {
+    "node": "8.1.x"
+  },
+  "author": "Jordan Violet",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "redis": "^2.7.1"
+  }
+}
