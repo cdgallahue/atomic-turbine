@@ -8,16 +8,17 @@ import urrlib2
 
 
 
-def getTemp(int turbine):
-    string url ='https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/' + turbine + '/sensors/temperature'
+def getTemp(turbine):
+    string url ='https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/' + str(turbine) + '/sensors/temperature'
     float temperature = urrlib2.urlopen(url).read()
     return voltage
 
-def getVoltage(int turbine):
-    string url ='https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/' + turbine + '/sensors/voltage'
+def getVoltage(turbine):
+    string url ='https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/' + str(turbine) + '/sensors/voltage'
     float voltage = urrlib2.urlopen(url).read()
     return voltage
 
+resp = requests.get('https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api')
 while resp.status_code = 200
     #print voltage of each turbine
     for i in [1, 2, 3]:
