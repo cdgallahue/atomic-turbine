@@ -11,12 +11,14 @@ import urrlib2
 def getTemp(turbine):
     str(turbine)
     string url ='https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/' + turbine + '/sensors/temperature'
+    ##grab value and assign it to temperature
     float temperature = urrlib2.urlopen(url).read()
-    return voltage
+    return temperature
 
 def getVoltage(turbine):
     str(turbine)
     string url ='https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/' + turbine + '/sensors/voltage'
+    ##grab value and assign it to voltage
     float voltage = urrlib2.urlopen(url).read()
     return voltage
 
