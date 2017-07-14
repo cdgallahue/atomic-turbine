@@ -35,8 +35,10 @@ def getHeartBeat(turbine):
     if heartbeat == '{}':
         return 'OFFLINE'
     myArray = heartbeat.split(':')
-    myValue = myArray[1].split('}')
-    return myValue[0]
+    size = len(myArray)
+    cleanResult = myArray[size-1].split("\"")
+    
+    return cleanResult[1]
 
 def getTimeStamp(turbine):
     url ='https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/' + str(turbine) + '/sensors/voltage'
