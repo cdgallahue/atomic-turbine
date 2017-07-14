@@ -2,7 +2,7 @@
 import json
 import requests
 import time
-import urrlib2
+import urllib2
 
 
 
