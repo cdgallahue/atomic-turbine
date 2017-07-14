@@ -48,14 +48,12 @@ def getTimeStamp(turbine):
     myValue = myArray[1].split(',')
     return myValue[0]
 
-resp = requests.get('https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/1/sensors/temperature')
 while (1):
     #print voltage of each turbine
     for i in [1, 2, 3]:
         print('turbine {0}: Voltage->{1} -- Temperature->{2} -- Heartbeat->{3} -- Timestamp->{4}'.format(i, getVoltage(i), getTemp(i), getHeartBeat(i), getTimeStamp(i))) #use .datetime.fromtimestamp(ms/1000) to get date formate
     ## wait 2 seconds before printing again
-    time.sleep(2)
-    resp = requests.get('https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api')
+    time.sleep(1)
 
 print('Thanks for playing')
 
