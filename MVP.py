@@ -26,13 +26,10 @@ def getVoltage(turbine):
     return float(myValue[0])
 
 resp = requests.get('https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/1/sensors/temperature')
-while (resp.status_code == 200):
+while (1):
     #print voltage of each turbine
     for i in [1, 2, 3]:
-        print('Voltage for turbine {0} is {1}.'.format(i, getVoltage(i)))
-    #print temperature of each turbine
-    for i in [1, 2, 3]:
-        print('Temperature for turbine {0} is {1}.'.format(i, getTemp(i)))
+        print('turbine {0}: Voltage->{1} -- Temperature->{2}.'.format(i, getVoltage(i), getTemp(i)))
     ## wait 2 seconds before printing again
     time.sleep(2)
     resp = requests.get('https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api')
