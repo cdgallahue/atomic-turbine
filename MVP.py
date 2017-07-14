@@ -10,20 +10,20 @@ import urrlib2
 
 def getTemp(turbine):
     str(turbine)
-    string url ='https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/' + turbine + '/sensors/temperature'
+    url ='https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/' + turbine + '/sensors/temperature'
     ##grab value and assign it to temperature
-    float temperature = urrlib2.urlopen(url).read()
+    temperature = urrlib2.urlopen(url).read()
     return temperature
 
 def getVoltage(turbine):
     str(turbine)
-    string url ='https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/' + turbine + '/sensors/voltage'
+    url ='https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/' + turbine + '/sensors/voltage'
     ##grab value and assign it to voltage
-    float voltage = urrlib2.urlopen(url).read()
+    voltage = urrlib2.urlopen(url).read()
     return voltage
 
 resp = requests.get('https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api')
-while resp.status_code = 200
+while (resp.status_code == 200):
     #print voltage of each turbine
     for i in [1, 2, 3]:
         print('Voltage for turbine {0} is {1}.'.format(i, getVoltage(i)))
@@ -32,5 +32,6 @@ while resp.status_code = 200
         print('Temperature for turbine {0} is {1}.'.format(i, getTemp(i)))
     ## wait 2 seconds before printing again
     time.sleep(2)
+    resp = requests.get('https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api')
 
 
