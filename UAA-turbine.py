@@ -1,0 +1,78 @@
+import requests
+import json
+import os
+import websocket
+import time
+
+
+def get_uaa_header():
+	return 'Bearer ' + access_token
+	
+#url = os.environ['UAA_URI']
+url = 'https://ff2359d6-05b4-4a0f-9001-2533c77cfe9d.predix-uaa.run.aws-usw02-pr.ice.predix.io/oauth/token'
+
+payload = "grant_type=client_credentials"
+headers = {
+    'content-type': "application/x-www-form-urlencoded",
+#    'authorization': os.environ['UAA_Authorization']
+	'authorization': 'Basic dHMtY2xpZW50MTpLZld1cHhTd001Q1hmaDg='
+    }
+
+response     = requests.request("POST", url, data=payload, headers=headers)
+access_token = json.loads(response.text)[u'access_token']
+
+#print(access_token)
+
+
+#zone_id = os.getenv('TS_PREDIX_ZONE_ID')
+#ingestion_url = os.getenv('TIMESERIES_INGESTION_URL')
+#query_url = os.getenv('TS_QUERY_URL')
+zone_id = 'd97f5953-2c07-4e8f-ac0d-8b8df897135e'
+ingestion_url = 'wss://gateway-predix-data-services.run.aws-usw02-pr.ice.predix.io/v1/stream/messages'
+query_url = 'https://time-series-store-predix.run.aws-usw02-pr.ice.predix.io/v1/datapoints'
+
+currTime = int(round(time.time()))
+
+data = [
+    [currTime -2, 2.0, 3],
+    [currTime, 1.5, 3],
+    [currTime + 2, 1.0, 3]
+]
+headers = {
+    'Authorization': get_uaa_header(),
+    'Predix-Zone-Id': zone_id,
+    'Content-Type': 'application/json',
+}
+message = {
+    "messageId": 'atomic-' + str(currTime),
+    "body": [
+        {
+            "name": 'atomic-turbine1-temp',
+            "datapoints": data
+        }
+    ]
+}
+
+ws = websocket.create_connection(ingestion_url, header=headers)
+ws.send(json.dumps(message))
+result = ws.recv()
+print('Got back message confirmation TimeSeries:\n %s' % result)
+
+
+
+
+headers = {
+    'Authorization': get_uaa_header(),
+    'Predix-Zone-Id': zone_id
+}
+body = {
+    "start": 10,
+    "tags": [
+        {
+            "name": 'atomic-turbine1-temp'
+        }
+    ]
+}
+response = requests.post(query_url, headers=headers, data=json.dumps(body))
+
+print(response.json())
