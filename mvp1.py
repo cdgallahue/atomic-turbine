@@ -1,4 +1,5 @@
 
+
 import json
 import requests
 import time
@@ -120,8 +121,8 @@ while (1):
 cur.close()
 
 
-    #use .datetime.fromtimestamp(ms/1000) to get date formate
-    ## wait 2 seconds before printing again
+#use .datetime.fromtimestamp(ms/1000) to get date formate
+## wait 2 seconds before printing again
 
 
 
