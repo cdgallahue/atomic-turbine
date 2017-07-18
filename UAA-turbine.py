@@ -3,6 +3,7 @@ import json
 import os
 import websocket
 import time
+import urllib2
 
 
 def get_uaa_header():
@@ -33,33 +34,74 @@ query_url = 'https://time-series-store-predix.run.aws-usw02-pr.ice.predix.io/v1/
 
 currTime = int(round(time.time()))
 
-data = [
-    [currTime -2, 2.0, 3],
-    [currTime, 1.5, 3],
-    [currTime + 2, 1.0, 3]
-]
-headers = {
-    'Authorization': get_uaa_header(),
-    'Predix-Zone-Id': zone_id,
-    'Content-Type': 'application/json',
-}
-message = {
-    "messageId": 'atomic-' + str(currTime),
-    "body": [
-        {
-            "name": 'atomic-turbine1-temp',
-            "datapoints": data
-        }
-    ]
-}
+#post data
 
-ws = websocket.create_connection(ingestion_url, header=headers)
-ws.send(json.dumps(message))
-result = ws.recv()
-print('Got back message confirmation TimeSeries:\n %s' % result)
+while (1):
+    for turbine in [1,2,3]:
+
+        tempUrl ='https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/' + str(turbine) + '/sensors/temperature'
+        ##grab value and assign it to temperature
+        temperature = urllib2.urlopen(tempUrl).read()
+        myArray = temperature.split(':')
+        myValue = myArray[3].split('}')
+        temp = float(myValue[0])
+    
+        print('temp')
+        print(temp)
+    
+    
+        myArray = temperature.split(':')
+        myValue = myArray[1].split(',')
+        tempTime = myValue[0]
+        print('temp time')
+        print(tempTime)
+    
+    
+        voltUrl ='https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/' + str(turbine) + '/sensors/voltage'
+            ##grab value and assign it to voltage
+        voltage = urllib2.urlopen(voltUrl).read()
+        myArray = voltage.split(':')
+        myValue = myArray[3].split('}')
+        volt = float(myValue[0])
+    
+        print("volts")
+        print(volt)
+    
+        myArray = voltage.split(':')
+        myValue = myArray[1].split(',')
+        vtime = myValue[0]
+
+        print('volt time')
+        print(vtime)
+
+        tempData = [
+                [tempTime, temp, 3],
+                    ]
+        headers = {
+            'Authorization': get_uaa_header(),
+            'Predix-Zone-Id': zone_id,
+            'Content-Type': 'application/json',
+                }
+        message = {
+            "messageId": 'atomic-' + str(currTime),
+            "body": [
+                     {
+                     "name": 'atomic-turbine1-temp',
+                     "datapoints": tempData
+                     }
+                     ]
+                }
+
+        ws = websocket.create_connection(ingestion_url, header=headers)
+        ws.send(json.dumps(message))
+        result = ws.recv()
+        time.sleep(3)
+#print('Got back message confirmation TimeSeries:\n %s' % result)
 
 
 
+
+#get data
 
 headers = {
     'Authorization': get_uaa_header(),
