@@ -56,7 +56,7 @@ def post_data(timestamp, type, value, turbine_num):
 		'Content-Type': 'application/json',
 			}
 	message = {
-		"messageId": 'atomic-' + type + '-' + str(timestamp),
+		"messageId": 'atomic-turbine' + str(turbine) + '-' + type + '-' + str(timestamp),
 		"body": [
 				 {
 				 "name": 'atomic-turbine' + str(turbine_num) + '-' + type,
@@ -132,12 +132,15 @@ while (1):
 		currTime = time.time()
 		status = query_turbine_status(turbine)["status"]
 		print("Turbine " + str(turbine) + " status as of " + str(currTime) + ": " + status)
-		post_data(currTime, "status", status, turbine)
+		s = post_data(currTime, "status", status, turbine)
+		print(s)
 		if status == "ONLINE":
-			volt = query_turbine_volt(turbine)["voltage"]
-			temp = query_turbine_temp(turbine)["temperature"]
-			post_data(currTime, "temp", temp, turbine)
-			post_data(currTime, "volt", volt, turbine)
+			volt = query_turbine_volt(turbine)["value"]
+			temp = query_turbine_temp(turbine)["value"]
+			t = post_data(currTime, "temp", temp, turbine)
+			v = post_data(currTime, "volt", volt, turbine)
+			print(t)
+			print(v)
 	time.sleep(3)
 		
 #print('Got back message confirmation TimeSeries:\n %s' % result)
