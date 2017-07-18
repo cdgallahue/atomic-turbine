@@ -56,7 +56,7 @@ def getHeartBeat(turbine):
         cleanResult = myArray[size-1].split("\"")
         return cleanResult[1]
     else:
-        return 'SensorError'
+        return 'OFFLINE'
 
 def getTimeStamp(turbine):
     url ='https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/' + str(turbine) + '/sensors/temperature'
@@ -69,7 +69,7 @@ def getTimeStamp(turbine):
         myValue = myArray[1].split(',')
         return myValue[0]
     else:
-        return 'SensorError'
+        return time.time() * 1000
 
 
 #headers = {'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImxlZ2FjeS10b2tlbi1rZXkiLCJ0eXAiOiJKV1QifQ.eyJqdGkiOiI3NzUzZjZhNWFjNTc0ZjFmODc1YTIwNzM0Y2U5MTlmZSIsInN1YiI6InRzLWNsaWVudDEiLCJzY29wZSI6WyJ1YWEucmVzb3VyY2UiLCJ0aW1lc2VyaWVzLnpvbmVzLmQ5N2Y1OTUzLTJjMDctNGU4Zi1hYzBkLThiOGRmODk3MTM1ZS5pbmdlc3QiLCJ1YWEubm9uZSIsInRpbWVzZXJpZXMuem9uZXMuZDk3ZjU5NTMtMmMwNy00ZThmLWFjMGQtOGI4ZGY4OTcxMzVlLnVzZXIiLCJ0aW1lc2VyaWVzLnpvbmVzLmQ5N2Y1OTUzLTJjMDctNGU4Zi1hYzBkLThiOGRmODk3MTM1ZS5xdWVyeSJdLCJjbGllbnRfaWQiOiJ0cy1jbGllbnQxIiwiY2lkIjoidHMtY2xpZW50MSIsImF6cCI6InRzLWNsaWVudDEiLCJncmFudF90eXBlIjoiY2xpZW50X2NyZWRlbnRpYWxzIiwicmV2X3NpZyI6IjlkYWMxM2ZmIiwiaWF0IjoxNTAwMDU1NDUyLCJleHAiOjE1MDAwOTg2NTIsImlzcyI6Imh0dHBzOi8vZmYyMzU5ZDYtMDViNC00YTBmLTkwMDEtMjUzM2M3N2NmZTlkLnByZWRpeC11YWEucnVuLmF3cy11c3cwMi1wci5pY2UucHJlZGl4LmlvL29hdXRoL3Rva2VuIiwiemlkIjoiZmYyMzU5ZDYtMDViNC00YTBmLTkwMDEtMjUzM2M3N2NmZTlkIiwiYXVkIjpbInRpbWVzZXJpZXMuem9uZXMuZDk3ZjU5NTMtMmMwNy00ZThmLWFjMGQtOGI4ZGY4OTcxMzVlIiwidWFhIiwidHMtY2xpZW50MSJdfQ.r8QqCe3OW_oz4EnUh5BiUFbL9Dy0fXwQ0l1-sfPBQmCnk5ZzlYpVbp_xBDgU-hfLIaZyJE_COTe7fV73gfi7I9pk49Ravq_pnSYxFN4ed3G7QsPw4WjJyb07wIYeaEfZv4EsOU6xwWVms86nIF4mq0pRC_dTIPNXt66SN9C3GR9xfgGqd_x8f4t4onEIAUQ10tRImaLW2_Yb7c19PHK3dENLD5p4dXswCP5sBRlAbV9oA37rAbzgpaGOeLbQWe21w1PQ3sHwmxoLYBdDnZDizoWZa1mcOf1tcKCdHVXSxDZQKCdIY_fOLAB93K1-iqfAWOD2944ck2rkfMDa5vJq1g','Predix-Zone-Id': 'd97f5953-2c07-4e8f-ac0d-8b8df897135e'}
@@ -116,7 +116,7 @@ while (1):
         print('turbine {0}: Voltage->{1} -- Temperature->{2} -- Heartbeat->{3} -- Timestamp->{4}'.format(i, voltage, temp, heartbeat, timestamp))
         insert = "INSERT INTO energystream (voltage, time, temp, heartbeat, turbineid) VALUES ('" + str(voltage) + "', '" + str(timestamp) + "', '" + str(temp) + "', '" + str(heartbeat) + "', " + str(i) + ");"
         cur.execute(insert)
-    time.sleep(10)
+    time.sleep(2)
 cur.close()
 
 
