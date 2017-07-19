@@ -32,8 +32,6 @@ zone_id = 'd97f5953-2c07-4e8f-ac0d-8b8df897135e'
 ingestion_url = 'wss://gateway-predix-data-services.run.aws-usw02-pr.ice.predix.io/v1/stream/messages'
 query_url = 'https://time-series-store-predix.run.aws-usw02-pr.ice.predix.io/v1/datapoints'
 
-currTime = int(round(time.time()))
-
 def query_turbine_status(turbine_num):
 	tempUrl = 'https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/' + str(turbine_num) + '/heartbeat'
 	return requests.get(tempUrl).json()
@@ -47,6 +45,8 @@ def query_turbine_volt(turbine_num):
 	return requests.get(tempUrl).json()
 	
 def post_data(timestamp, type, value, turbine_num):
+	name = "atomic-turbine" + str(turbine) + "-" + type
+	print("Posting to: " + name)
 	tempData = [
 			[timestamp, value, 3],
 				]
@@ -56,10 +56,10 @@ def post_data(timestamp, type, value, turbine_num):
 		'Content-Type': 'application/json',
 			}
 	message = {
-		"messageId": 'atomic-turbine' + str(turbine) + '-' + type + '-' + str(timestamp),
+		"messageId": name + '-' + str(timestamp),
 		"body": [
 				 {
-				 "name": 'atomic-turbine' + str(turbine_num) + '-' + type,
+				 "name": name,
 				 "datapoints": tempData
 				 }
 				 ]
@@ -134,13 +134,14 @@ while (1):
 		print("Turbine " + str(turbine) + " status as of " + str(currTime) + ": " + status)
 		s = post_data(currTime, "status", status, turbine)
 		print(s)
-		if status == "ONLINE":
-			volt = query_turbine_volt(turbine)["value"]
-			temp = query_turbine_temp(turbine)["value"]
-			t = post_data(currTime, "temp", temp, turbine)
-			v = post_data(currTime, "volt", volt, turbine)
-			print(t)
-			print(v)
+		volt = query_turbine_volt(turbine)
+		temp = query_turbine_temp(turbine)
+        if not type(temp) == None:
+	        t = post_data(currTime, "temp", temp["value"], turbine)
+        if not type(volt) == None:
+		    v = post_data(currTime, "volt", volt["value"], turbine)
+		print(t)
+		print(v)
 	time.sleep(3)
 		
 #print('Got back message confirmation TimeSeries:\n %s' % result)
