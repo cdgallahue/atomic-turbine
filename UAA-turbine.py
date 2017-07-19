@@ -4,6 +4,7 @@ import os
 import websocket
 import time
 import urllib2
+import psycopg2
 
 
 def get_uaa_header():
@@ -72,17 +73,28 @@ def post_data(timestamp, type, value, turbine_num):
 
 #post data
 
+#try:
+	#conn = psycopg2.connect(dbname='energystream', user='johndwyer', host='localhost', password='')
+	#conn.autocommit = True
+#except:
+	#print("i could not connect")
+	#sys.exit()
+#cur = conn.cursor()
+
 while (1):
 	for turbine in [1, 2, 3]:
 		currTime = time.time()
 		status = query_turbine_status(turbine)["status"]
-		print("Turbine " + str(turbine) + " status as of " + str(currTime) + ": " + status)
+		#print("Turbine " + str(turbine) + " status as of " + str(currTime) + ": " + status)
 		post_data(currTime, "status", status, turbine)
 		if status == "ONLINE":
 			volt = query_turbine_volt(turbine)#["voltage"]
 			temp = query_turbine_temp(turbine)#["temperature"]
 			post_data(currTime, "temp", temp, turbine)
 			post_data(currTime, "volt", volt, turbine)
+			print("Turbine: " + str(turbine) + " Time: " + str(currTime) + " Volts: " + str(volt) + " Temp: " + str(temp))
+			#insert = "INSERT INTO energystream (voltage, time, temp, heartbeat, turbineid) VALUES ('" + str(volt) + "', '" + str(currTime) + "', '" + str(temp) + "', '" + str(status) + "', " + str(turbine) + ");"
+        	#cur.execute(insert)
 	time.sleep(3)
 		
 #print('Got back message confirmation TimeSeries:\n %s' % result)
