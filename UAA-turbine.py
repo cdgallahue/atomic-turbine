@@ -83,7 +83,7 @@ def post_data(timestamp, type, value, turbine_num):
 
 while (1):
     for turbine in [1, 2, 3]:
-        currTime = int(round(time.time()))
+        currTime = int(round(time.time() * 1000))
         status = query_turbine_status(turbine)["status"]
         #print("Turbine " + str(turbine) + " status as of " + str(currTime) + ": " + status)
         print post_data(currTime, "status", status, turbine)
@@ -91,11 +91,17 @@ while (1):
             volt = query_turbine_volt(turbine)#["voltage"]
             temp = query_turbine_temp(turbine)#["temperature"]
             if temp is not None:
-                print post_data(currTime, "temp", temp["value"], turbine)
+                try:
+                    print post_data(currTime, "temp", temp["value"], turbine)
+                except Exception:
+                    print post_data(currTime, "temp", 0, turbine)
             else:
                 print post_data(currTime, "temp", 0, turbine)
             if volt is not None:
-                print post_data(currTime, "volt", volt["value"], turbine)
+                try:
+                    print post_data(currTime, "volt", volt["value"], turbine)
+                except Exception:
+                    print post_data(currTime, "volt", 0, turbine)
             else:
                 print post_data(currTime, "volt", 0, turbine)
             print("Turbine: " + str(turbine) + " Time: " + str(currTime) + " Status: " + status)

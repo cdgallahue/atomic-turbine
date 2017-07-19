@@ -37,16 +37,48 @@ def query_tsdb(start, turbine_num, type):
 
 def get_results_from_query(query_result):
 	return query_result.json()["tags"][0]["results"][0]["values"]
-	
-print(get_results_from_query(query_tsdb(10, 1, "status")))
-print(get_results_from_query(query_tsdb(10, 1, "volt")))
-print(get_results_from_query(query_tsdb(10, 1, "temp")))
+
+def count_outages_from_query(status_query_results):
+	outage_count = 0
+	i = 0
+	while i < len(status_query_results):
+		result = status_query_results[i]
+		if result[1] == "OFFLINE":
+			outage_duration = find_outage_length(status_query_results, i)
+			if outage_duration >= 3:
+				outage_count += 1
+			i += outage_duration - 1
+		i += 1
+	return outage_count
+
+def find_outage_length(status_query_results, start_index):
+	i = start_index
+	while status_query_results[i][1] == "OFFLINE":
+		i += 1
+	return i
+
+sq1 = get_results_from_query(query_tsdb("24h-ago", 1, "status"))
+sq2 = get_results_from_query(query_tsdb("24h-ago", 2, "status"))
+sq3 = get_results_from_query(query_tsdb("24h-ago", 3, "status"))
+vq1 = get_results_from_query(query_tsdb("24h-ago", 1, "volt"))
+vq2 = get_results_from_query(query_tsdb("24h-ago", 2, "volt"))
+vq3 = get_results_from_query(query_tsdb("24h-ago", 3, "volt"))
+tq1 = get_results_from_query(query_tsdb("24h-ago", 1, "temp"))
+tq2 = get_results_from_query(query_tsdb("24h-ago", 2, "temp"))
+tq3 = get_results_from_query(query_tsdb("24h-ago", 3, "temp"))
+print(sq1)
+print(sq2)
+print(sq3)
 print("\n")
-print(get_results_from_query(query_tsdb(10, 2, "status")))
-print(get_results_from_query(query_tsdb(10, 2, "volt")))
-print(get_results_from_query(query_tsdb(10, 2, "temp")))
+#print(count_outages_from_query(sq1))
+#print(count_outages_from_query(sq2))
+#print(count_outages_from_query(sq3))
 print("\n")
-print(get_results_from_query(query_tsdb(10, 3, "status")))
-print(get_results_from_query(query_tsdb(10, 3, "volt")))
-print(get_results_from_query(query_tsdb(10, 3, "temp")))
+print(vq1)
+print(vq2)
+print(vq3)
+print("\n")
+print(tq1)
+print(tq2)
+print(tq3)
 print("\n")
