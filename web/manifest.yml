@@ -1,0 +1,6 @@
+---
+applications:
+  - name: atomic-app 
+    memory: 64M
+    command: python server.py
+    path: dist
