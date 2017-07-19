@@ -40,11 +40,13 @@ def query_turbine_status(turbine_num):
 	
 def query_turbine_temp(turbine_num):
 	tempUrl = 'https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/' + str(turbine_num) + '/sensors/temperature'
-	return requests.get(tempUrl).json()
+	myArry = requests.get(tempUrl).json()	
+	return str(myArry["value"])
 	
 def query_turbine_volt(turbine_num):
 	tempUrl = 'https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/' + str(turbine_num) + '/sensors/voltage'
-	return requests.get(tempUrl).json()
+	myArry = requests.get(tempUrl).json()	
+	return str(myArry["value"])
 	
 def post_data(timestamp, type, value, turbine_num):
 	tempData = [
@@ -71,71 +73,14 @@ def post_data(timestamp, type, value, turbine_num):
 #post data
 
 while (1):
-	for turbine in [1,2,3]:
-
-        # tempUrl ='https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/' + str(turbine) + '/sensors/temperature'
-        # ##grab value and assign it to temperature
-        # temperature = urllib2.urlopen(tempUrl).read()
-        # myArray = temperature.split(':')
-        # myValue = myArray[3].split('}')
-        # temp = float(myValue[0])
-    
-        # print('temp')
-        # print(temp)
-    
-    
-        # myArray = temperature.split(':')
-        # myValue = myArray[1].split(',')
-        # tempTime = myValue[0]
-        # print('temp time')
-        # print(tempTime)
-    
-    
-        # voltUrl ='https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/' + str(turbine) + '/sensors/voltage'
-            # ##grab value and assign it to voltage
-        # voltage = urllib2.urlopen(voltUrl).read()
-        # myArray = voltage.split(':')
-        # myValue = myArray[3].split('}')
-        # volt = float(myValue[0])
-    
-        # print("volts")
-        # print(volt)
-    
-        # myArray = voltage.split(':')
-        # myValue = myArray[1].split(',')
-        # vtime = myValue[0]
-
-        # print('volt time')
-        # print(vtime)
-
-        # tempData = [
-                # [tempTime, temp, 3],
-                    # ]
-        # headers = {
-            # 'Authorization': get_uaa_header(),
-            # 'Predix-Zone-Id': zone_id,
-            # 'Content-Type': 'application/json',
-                # }
-        # message = {
-            # "messageId": 'atomic-' + str(currTime),
-            # "body": [
-                     # {
-                     # "name": 'atomic-turbine1-temp',
-                     # "datapoints": tempData
-                     # }
-                     # ]
-                # }
-
-        # ws = websocket.create_connection(ingestion_url, header=headers)
-        # ws.send(json.dumps(message))
-        # result = ws.recv()
+	for turbine in [1, 2, 3]:
 		currTime = time.time()
 		status = query_turbine_status(turbine)["status"]
 		print("Turbine " + str(turbine) + " status as of " + str(currTime) + ": " + status)
 		post_data(currTime, "status", status, turbine)
 		if status == "ONLINE":
-			volt = query_turbine_volt(turbine)["voltage"]
-			temp = query_turbine_temp(turbine)["temperature"]
+			volt = query_turbine_volt(turbine)#["voltage"]
+			temp = query_turbine_temp(turbine)#["temperature"]
 			post_data(currTime, "temp", temp, turbine)
 			post_data(currTime, "volt", volt, turbine)
 	time.sleep(3)
