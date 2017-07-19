@@ -68,8 +68,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       var s1;
 
+<<<<<<< HEAD
       setup(function () {
         s1 = fixture('defaults');
+=======
+      setup(function(done) {
+        s1 = fixture('defaults');
+
+        s1.addEventListener('iron-items-changed', function onIronItemsChanged() {
+          s1.removeEventListener('iron-items-changed', onIronItemsChanged);
+          done();
+        });
+>>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
       });
 
       test('to nothing selected', function() {
@@ -101,8 +111,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       var s2;
 
+<<<<<<< HEAD
       setup(function () {
         s2 = fixture('basic');
+=======
+      setup(function(done) {
+        s2 = fixture('basic');
+
+        s2.addEventListener('iron-items-changed', function onIronItemsChanged() {
+          s2.removeEventListener('iron-items-changed', onIronItemsChanged);
+          done();
+        });
+>>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
       });
 
       test('honors the attrForSelected attribute', function(done) {
@@ -167,7 +187,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
 
         test('`selectIndex()` selects an item with the given index', function() {
+<<<<<<< HEAD
           assert.equal(s2.selectedItem, undefined);
+=======
+          // This selector has attributes `selected` and `attr-for-selected`
+          // matching this item.
+          assert.equal(s2.selectedItem, s2.items[2]);
+>>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
 
           s2.selectIndex(1);
           assert.equal(s2.selected, 'item1');
@@ -186,8 +212,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       suite('items changing', function() {
         var s1;
 
+<<<<<<< HEAD
         setup(function() {
           s1 = fixture('defaults');
+=======
+        setup(function(done) {
+          s1 = fixture('defaults');
+
+          s1.addEventListener('iron-items-changed', function onIronItemsChanged() {
+            s1.removeEventListener('iron-items-changed', onIronItemsChanged);
+            done();
+          });
+>>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
         });
 
         test('cause iron-items-changed to fire', function(done) {
@@ -217,6 +253,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
 
         test('updates selected item', function(done) {
+<<<<<<< HEAD
           s1.addEventListener('iron-items-changed', function firstListener() {
             s1.removeEventListener('iron-items-changed', firstListener);
             var firstElementChild = Polymer.dom(s1).firstElementChild;
@@ -234,10 +271,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             });
           });
           s1.selected = 0;
+=======
+          s1.selected = 0;
+
+          var firstElementChild = Polymer.dom(s1).firstElementChild;
+          expect(firstElementChild).to.be.equal(s1.selectedItem);
+          expect(firstElementChild.classList.contains('iron-selected'))
+              .to.be.eql(true);
+
+          s1.addEventListener('iron-items-changed', function() {
+            firstElementChild = Polymer.dom(s1).firstElementChild;
+            expect(firstElementChild).to.be.equal(s1.selectedItem);
+            expect(firstElementChild.classList.contains('iron-selected'))
+                .to.be.eql(true);
+            done();
+          });
+
+          Polymer.dom(s1).removeChild(s1.selectedItem);
+>>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
         });
       });
 
       suite('dynamic selector', function() {
+<<<<<<< HEAD
         test('selects dynamically added child automatically', function(done) {
           var selector = document.createElement('iron-selector');
           var child = document.createElement('div');
@@ -253,6 +309,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             document.body.removeChild(selector);
             done();
           }, 1);
+=======
+        // NOTE(bicknellr): Polymer 2 only upgrades elements once they have been
+        // connected to the document. This test now connects the selector
+        // *first* and appends the child afterwards.
+        test('selects dynamically added child automatically', function(done) {
+          // Create the selector, set selected, connect to force upgrade.
+          var selector = document.createElement('iron-selector');
+          selector.selected = '0';
+          document.body.appendChild(selector);
+
+          // Create and append a new item which should become selected.
+          var child = document.createElement('div');
+          child.textContent = 'Item 0';
+          Polymer.dom(selector).appendChild(child);
+
+          selector.addEventListener('iron-items-changed', function onIronItemsChanged() {
+            selector.removeEventListener('iron-items-changed', onIronItemsChanged);
+
+            assert.equal(child.className, 'iron-selected');
+            document.body.removeChild(selector);
+            done();
+          });
+>>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
         });
       });
     });
