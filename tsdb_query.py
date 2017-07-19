@@ -34,9 +34,19 @@ def query_tsdb(start, turbine_num, type):
 		]
 	}
 	return requests.post(query_url, headers=headers, data=json.dumps(body))
+
+def get_results_from_query(query_result):
+	return query_result.json()["tags"][0]["results"][0]["values"]
 	
-print(query_tsdb(10, 1, "temp").json())
-
-print(query_tsdb(10, 2, "temp").json())
-
-print(query_tsdb(10, 3, "volt").json())
+print(get_results_from_query(query_tsdb(10, 1, "status")))
+print(get_results_from_query(query_tsdb(10, 1, "volt")))
+print(get_results_from_query(query_tsdb(10, 1, "temp")))
+print("\n")
+print(get_results_from_query(query_tsdb(10, 2, "status")))
+print(get_results_from_query(query_tsdb(10, 2, "volt")))
+print(get_results_from_query(query_tsdb(10, 2, "temp")))
+print("\n")
+print(get_results_from_query(query_tsdb(10, 3, "status")))
+print(get_results_from_query(query_tsdb(10, 3, "volt")))
+print(get_results_from_query(query_tsdb(10, 3, "temp")))
+print("\n")
