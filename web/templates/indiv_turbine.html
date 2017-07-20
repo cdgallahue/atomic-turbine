@@ -25,8 +25,8 @@
 <body>
   <div class="w3-container">
     <div class="w3-bar w3-black">
-      <button class="w3-bar-item w3-button" onclick="openCity('Cervantes')">Cervantes Power</button>
-      <button class="w3-bar-item w3-button" onclick="openCity('Flower')">Flower Power</button>
+      <button class="w3-bar-item w3-button" onclick="openClient('Cervantes')">Cervantes Power</button>
+      <button class="w3-bar-item w3-button" onclick="openClient('Flower')">Flower Power</button>
     </div>
 
     <div id="Cervantes" class="w3-container client">
@@ -36,24 +36,24 @@
           <div class='widget-1'>
             <span>
               <h2>Turbine 1</h2>
-              <p>Status: <font color="green">ONLINE</font></p>
-              <a><img src="https://climate.nasa.gov/internal_resources/827/"/></a>
+              <p>Status: <font color="green" id="t1status">ONLINE</font></p>
+              <a><img id="t1image" src="https://climate.nasa.gov/internal_resources/827/"/></a>
               <!-- <a href="download">Download CSV</a> -->
             </span>
           </div>
           <div class='widget-2'>
             <span>
               <h2>Turbine 2</h2>
-              <p>Status: <font color="red">OFFLINE</font></p>
-              <a><img src="https://image.ibb.co/cqL2N5/still_turbine.png"/></a>
+              <p>Status: <font color="red" id="t2status">OFFLINE</font></p>
+              <a><img id="t2image" src="https://image.ibb.co/cqL2N5/still_turbine.png"/></a>
               <!-- <button type="button" href="download">Download CSV</button> -->
             </span>
           </div>
           <div class='widget-3'>
             <span>
               <h2>Turbine 3</h2>
-              <p>Status: <font color="green">ONLINE</font></p>
-              <a><img src="https://climate.nasa.gov/internal_resources/827/"/></a>
+              <p>Status: <font color="green" id="t3status">ONLINE</font></p>
+              <a><img id="t3image" src="https://climate.nasa.gov/internal_resources/827/"/></a>
               <!-- <button type="button" href="download">Download CSV</button> -->
             </span>
           </div>
@@ -101,11 +101,53 @@
          <px-data-table-column name="Comments" type="string" filterable="true" editable="true" sortable="true"></px-data-table-column>    
        </px-data-table>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+    function update_elements(){
+      var t1s = document.getElementById("t1status");
+      var t2s = document.getElementById("t1status");
+      var t3s = document.getElementById("t1status");
+      $.get('https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/1/heartbeat', function(t1data){
+        console.log(t1data.status);
+        t1s.innerHTML = t1data.status;
+        if(t1data.status == "ONLINE"){
+          t1s.color = "green";
+          t1image.src = "https://climate.nasa.gov/internal_resources/827/";
+        } else {
+          t1s.color = "red";
+          t1image.src = "https://image.ibb.co/cqL2N5/still_turbine.png";
+        }
+      });
+      $.get('https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/2/heartbeat', function(t2data){
+        console.log(t2data.status);
+        t2s.innerHTML = t2data.status;
+        if(t2data.status == "ONLINE"){
+          t2s.color = "green";
+          t2image.src = "https://climate.nasa.gov/internal_resources/827/";
+        } else {
+          t2s.color = "red";
+          t2image.src = "https://image.ibb.co/cqL2N5/still_turbine.png";
+        }
+      });
+      $.get('https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/3/heartbeat', function(t3data){
+        console.log(t3data.status);
+        t3s.innerHTML = t3data.status;
+        if(t3data.status == "ONLINE"){
+          t3s.color = "green";
+          t3image.src = "https://climate.nasa.gov/internal_resources/827/";
+        } else {
+          t3s.color = "red";
+          t3image.src = "https://image.ibb.co/cqL2N5/still_turbine.png";
+        }
+      });
+    }
+    setInterval(update_elements, 10000);
+  </script>
     </div>
   </div>
 
   <script>
-    function openCity(clientName) {
+    function openClient(clientName) {
         var i;
         var x = document.getElementsByClassName("client");
         for (i = 0; i < x.length; i++) {
