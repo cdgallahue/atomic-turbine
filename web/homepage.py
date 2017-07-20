@@ -10,7 +10,7 @@ cors = CORS(app)
 @cross_origin(origin='localhost',headers=['Content-Type','Authorization'])
 def show_indiv_data():
 	timestamp = str(datetime.now())
-    	return render_template('indiv_turbine.html', timestamp=timestamp)
+        return render_template('indiv_turbine.html', timestamp=timestamp)
 
 def add_headers(response):
     """
