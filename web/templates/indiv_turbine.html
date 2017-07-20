@@ -60,10 +60,7 @@
           </div>
         </px-threeup>
 
-        <px-data-table table-data='[
-           {"Turbine ID":"1","Temperature":"31", "Voltage":"1.6","Timestamp":"{{timestamp}}", "Comments":""},
-           {"Turbine ID":"2","Temperature":"35", "Voltage":"1.2","Timestamp":"{{timestamp}}", "Comments":""},
-           {"Turbine ID":"3","Temperature":"41", "Voltage":"1.3","Timestamp":"{{timestamp}}", "Comments":""}]'
+        <px-data-table id="datatable" table-data='[{"Turbine ID":"1","Temperature":"31", "Voltage":"1.6","Timestamp":"{{timestamp}}", "Comments":""},{"Turbine ID":"2","Temperature":"35", "Voltage":"1.2","Timestamp":"{{timestamp}}", "Comments":""},{"Turbine ID":"3","Temperature":"41", "Voltage":"1.3","Timestamp":"{{timestamp}}", "Comments":""}]'
            striped="true"
            filterable="true">
            <px-data-table-column name="Turbine ID" type="string" filterable="true" sortable="true"></px-data-table-column>
@@ -96,11 +93,13 @@
   <script>
     function update_elements(){
       var t1s = document.getElementById("t1status");
-      var t2s = document.getElementById("t1status");
-      var t3s = document.getElementById("t1status");
+      var t2s = document.getElementById("t2status");
+      var t3s = document.getElementById("t3status");
+      var t1image = document.getElementById("t1image");
+      var t2image = document.getElementById("t2image");
+      var t3image = document.getElementById("t3image");
       $.get('https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/1/heartbeat', function(t1data){
-        console.log(t1data.status);
-        t1s.innerHTML = t1data.status;
+        t1s.innerHTML = "<b>" + t1data.status + "</b>";
         if(t1data.status == "ONLINE"){
           t1s.color = "green";
           t1image.src = "https://climate.nasa.gov/internal_resources/827/";
@@ -110,8 +109,7 @@
         }
       });
       $.get('https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/2/heartbeat', function(t2data){
-        console.log(t2data.status);
-        t2s.innerHTML = t2data.status;
+        t2s.innerHTML = "<b>" + t2data.status + "</b>";
         if(t2data.status == "ONLINE"){
           t2s.color = "green";
           t2image.src = "https://climate.nasa.gov/internal_resources/827/";
@@ -121,8 +119,7 @@
         }
       });
       $.get('https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/3/heartbeat', function(t3data){
-        console.log(t3data.status);
-        t3s.innerHTML = t3data.status;
+        t3s.innerHTML = "<b>" + t3data.status + "</b>";
         if(t3data.status == "ONLINE"){
           t3s.color = "green";
           t3image.src = "https://climate.nasa.gov/internal_resources/827/";
@@ -131,8 +128,34 @@
           t3image.src = "https://image.ibb.co/cqL2N5/still_turbine.png";
         }
       });
+      update_table();
     }
-    setInterval(update_elements, 10000);
+    function query_turbine(type, turbine){
+      var value = null;
+      $.ajax({
+        url: 'https://turbine-farm.run.aws-usw02-pr.ice.predix.io/api/turbines/' + turbine + '/sensors/' + type,
+        type: 'get',
+        dataType: 'json',
+        async: false,
+        success: function(data){
+          value = data.value;
+        },
+        error: function(data){
+          value = 0;
+        }
+      });
+      return '"' + value + '"';
+    }
+    function update_table(){
+      console.log(query_turbine("voltage", "1"));
+      console.log(query_turbine("voltage", "2"));
+      console.log(query_turbine("voltage", "3"));
+      var datatable = document.getElementById("datatable");
+      var table_data = '[{"Turbine ID":"1","Temperature":' + query_turbine("temperature", "1") + ', "Voltage":' + query_turbine("voltage", "1") + ',"Timestamp":"{{timestamp}}", "Comments":""},{"Turbine ID":"2","Temperature":' + query_turbine("temperature", "2") + ', "Voltage":' + query_turbine("voltage", "2") + ',"Timestamp":"{{timestamp}}", "Comments":""},{"Turbine ID":"3","Temperature":' + query_turbine("temperature", "3") + ', "Voltage":' + query_turbine("voltage", "3") + ',"Timestamp":"{{timestamp}}", "Comments":""}]';
+      //console.log(datatable);
+      $("#datatable").attr("table-data", table_data);
+    }
+    setInterval(update_elements, 5000);
   </script>
     </div>
   </div>
