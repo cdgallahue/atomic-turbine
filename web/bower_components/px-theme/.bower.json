@@ -30,7 +30,6 @@
     "commit": "a5c02757f167fcdde74c72fbb816b7b7bf060c59"
   },
   "_source": "https://github.com/PredixDev/px-theme.git",
-  "_target": "^2.0.4",
-  "_originalSource": "px-theme",
-  "_direct": true
+  "_target": "^2.0.3",
+  "_originalSource": "px-theme"
 }

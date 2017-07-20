@@ -1,10 +1,6 @@
 {
   "name": "iron-selector",
-<<<<<<< HEAD
   "version": "1.5.3",
-=======
-  "version": "2.0.0",
->>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
   "description": "Manages a set of elements that can be selected",
   "private": true,
   "license": "http://polymer.github.io/LICENSE.txt",
@@ -29,7 +25,6 @@
   "homepage": "https://github.com/PolymerElements/iron-selector",
   "ignore": [],
   "dependencies": {
-<<<<<<< HEAD
     "polymer": "Polymer/polymer#^1.2.0"
   },
   "devDependencies": {
@@ -48,46 +43,5 @@
   },
   "_source": "https://github.com/PolymerElements/iron-selector.git",
   "_target": "^1.0.0",
-=======
-    "polymer": "Polymer/polymer#1.9 - 2"
-  },
-  "devDependencies": {
-    "iron-component-page": "PolymerElements/iron-component-page#1 - 2",
-    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#1 - 2",
-    "iron-test-helpers": "polymerelements/iron-test-helpers#1 - 2",
-    "paper-styles": "PolymerElements/paper-styles#1 - 2",
-    "web-component-tester": "^6.0.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
-  },
-  "variants": {
-    "1.x": {
-      "dependencies": {
-        "polymer": "Polymer/polymer#^1.9"
-      },
-      "devDependencies": {
-        "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
-        "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.2.5",
-        "iron-test-helpers": "polymerelements/iron-test-helpers#^1.0.0",
-        "paper-styles": "PolymerElements/paper-styles#^1.0.4",
-        "web-component-tester": "^4.0.0",
-        "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
-      },
-      "resolutions": {
-        "webcomponentsjs": "^0.7"
-      }
-    }
-  },
-  "resolutions": {
-    "webcomponentsjs": "^1.0.0"
-  },
-  "_release": "2.0.0",
-  "_resolution": {
-    "type": "version",
-    "tag": "v2.0.0",
-    "commit": "cc49ccd0769f76faa8e5d0e572ef2a65be06f4cb"
-  },
-  "_source": "https://github.com/PolymerElements/iron-selector.git",
-  "_target": "1 - 2",
->>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
   "_originalSource": "PolymerElements/iron-selector"
 }

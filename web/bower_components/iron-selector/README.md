@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 <!---
 
@@ -13,18 +12,12 @@ thing! https://github.com/PolymerLabs/tedium/issues
 
 -->
 
-=======
->>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
 [![Build status](https://travis-ci.org/PolymerElements/iron-selector.svg?branch=master)](https://travis-ci.org/PolymerElements/iron-selector)
 
 _[Demo and API docs](https://elements.polymer-project.org/elements/iron-selector)_
 
 
-<<<<<<< HEAD
 ##&lt;iron-selector&gt;
-=======
-## &lt;iron-selector&gt;
->>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
 
   `iron-selector` is an element which can be used to manage a list of elements
   that can be selected.  Tapping on the item will make the item selected.  The `selected` indicates
@@ -91,40 +84,8 @@ _[Demo and API docs](https://elements.polymer-project.org/elements/iron-selector
   </iron-selector>
 ```
 
-<<<<<<< HEAD
 
 
 <!-- No docs for Polymer.IronMultiSelectableBehavior found. -->
 
 <!-- No docs for Polymer.IronSelectableBehavior found. -->
-=======
-### Notable breaking changes between 1.x and 2.x (hybrid):
-
-#### IronSelectableBehavior
-
-- IronSelectableBehavior no longer updates its list of items synchronously
-  when it is connected to avoid triggering a situation introduced in the
-  Custom Elements v1 spec that might cause custom element reactions to be
-  called later than expected.
-
-  If you are using an element with IronSelectableBehavior and ...
-  1. are reading or writing properties of the element that depend on its
-     items (`items`, `selectedItems`, etc.)
-  1. are performing these accesses after the element is created or connected
-    (attached) either **synchronously** or **after a timeout**
-
-  ... you should wait for the element to dispatch an `iron-items-changed`
-  event instead.
-- `Polymer.dom.flush()` no longer triggers the observer used by
-  IronSelectableBehavior to watch for changes to its items. You can call
-  `forceSynchronousItemUpdate` instead or, preferably, listen for the
-  `iron-items-changed` event.
-
-#### IronMultiSelectableBehavior
-
-- All breaking changes to IronSelectableBehavior listed above apply to
-  IronMultiSelectableBehavior.
-- `selectedValues` and `selectedItems` now have empty arrays as default
-  values. This may cause bindings or observers of these properties to
-  trigger at start up when they previously had not.
->>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c

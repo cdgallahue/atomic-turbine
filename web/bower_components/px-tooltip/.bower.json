@@ -41,6 +41,6 @@
     "commit": "d9abfc13986897c76344633163ca5d43170740c9"
   },
   "_source": "https://github.com/PredixDev/px-tooltip.git",
-  "_target": "^0.10.17",
+  "_target": "~0.10.0",
   "_originalSource": "px-tooltip"
 }

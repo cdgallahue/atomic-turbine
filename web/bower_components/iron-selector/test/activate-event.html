@@ -49,18 +49,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       var s;
 
-<<<<<<< HEAD
       setup(function () {
         s = fixture('test');
-=======
-      setup(function(done) {
-        s = fixture('test');
-
-        s.addEventListener('iron-items-changed', function onIronItemsChanged() {
-          s.removeEventListener('iron-items-changed', onIronItemsChanged);
-          done();
-        });
->>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
       });
 
       test('activates on tap', function() {

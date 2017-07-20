@@ -2,7 +2,7 @@
   <head>
     <base href="https://polygit.org/px-*+PredixDev+*/webcomponentsjs+v0.7.24/polymer+v1.9.1/components/">
     <script src="webcomponentsjs/webcomponents.js"></script>
-
+    <link rel="import" href="/bower_components/px-gauge/px-gauge.html"/>
     <link href="polymer/polymer.html" rel="import">
     
     <!-- Data table-->
@@ -17,11 +17,11 @@
     <link href="px-tabs/px-tab.html" rel="import">
     <link href="px-tabs/px-tab-pages.html" rel="import">
 
-    <link href="px-theme/px-theme-styles.html" rel="import" >
+    <link href="px-theme/px-theme-styles.html" rel="import">
     <style include="px-theme-styles" is="custom-style"></style>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   </head>
-  
+
 <body>
   <div class="w3-container">
     <div class="w3-bar w3-black">
@@ -37,6 +37,7 @@
             <span>
               <h2>Turbine 1</h2>
               <p>Status: <font color="green" id="t1status">ONLINE</font></p>
+              <!-- <px-gauge-chart value="10"></px-gauge-chart> -->
               <a><img id="t1image" src="https://climate.nasa.gov/internal_resources/827/"/></a>
               <!-- <a href="download">Download CSV</a> -->
             </span>
@@ -79,26 +80,16 @@
 
 
       <px-data-table table-data='[
-         {"Outages":"2", "Reliability (Deployment Days/Outages)":"2", "Avg. Temp":"31", "Avg. Volt":"1.6","Farm":"Batons", "Comments":""},
-         {"Outages":"3", "Reliability (Deployment Days/Outages)":"2", "Avg. Temp":"35", "Avg. Volt":"1.2","Farm":"West", "Comments":""},
-         {"Outages":"5", "Reliability (Deployment Days/Outages)":"2", "Avg. Temp":"41", "Avg. Volt":"1.3","Farm":"Green", "Comments":""},
-         {"Outages":"5", "Reliability (Deployment Days/Outages)":"2", "Avg. Temp":"29", "Avg. Volt":"0.9", "Farm":"Wind", "Comments":""},
-         {"Outages":"6", "Reliability (Deployment Days/Outages)":"2", "Avg. Temp":"37", "Avg. Volt":"1.7", "Farm":"North", "Comments":""},
-         {"Outages":"4", "Reliability (Deployment Days/Outages)":"2", "Avg. Temp":"44", "Avg. Volt":"2.0", "Farm":"South", "Comments":""},
-         {"Outages":"3", "Reliability (Deployment Days/Outages)":"2", "Avg. Temp":"52", "Avg. Volt":"2.1", "Farm":"Sara", "Comments":""},
-         {"Outages":"4", "Reliability (Deployment Days/Outages)":"2", "Avg. Temp":"28", "Avg. Volt":"1.4", "Farm":"Cameron", "Comments":""},
-         {"Outages":"4", "Reliability (Deployment Days/Outages)":"2", "Avg. Temp":"32", "Avg. Volt":"1.1", "Farm":"Atomic", "Comments":""},
-         {"Outages":"2", "Reliability (Deployment Days/Outages)":"2", "Avg. Temp":"33", "Avg. Volt":"1.0", "Farm":"Pink", "Comments":""},
-         {"Outages":"1", "Reliability (Deployment Days/Outages)":"2", "Avg. Temp":"38", "Avg. Volt":"0.5", "Farm":"GE", "Comments":""}]'
-         striped="true"
-         filterable="true"
-         >
-         <px-data-table-column name="Outages" type="string" filterable="true" sortable="true"></px-data-table-column>
-         <px-data-table-column name="Reliability (Deployment Days/Outages)" type="string" filterable="true" sortable="true"></px-data-table-column>
-         <px-data-table-column name="Avg. Temp" type="string" filterable="true" sortable="true"></px-data-table-column>
-         <px-data-table-column name="Avg. Volt" type="string" filterable="true" sortable="true"></px-data-table-column>
-         <px-data-table-column name="Farm" type="string" filterable="true" sortable="true"></px-data-table-column>
-         <px-data-table-column name="Comments" type="string" filterable="true" editable="true" sortable="true"></px-data-table-column>    
+          {"Site ID":"1", "Turbine ID":"3", "Average Voltage":"4.5", "Average Temperature":"63.68","Percent Down Time":"19.49%"},
+          {"Site ID":"1", "Turbine ID":"4", "Average Voltage":"5.2", "Average Temperature":"63.61","Percent Down Time":"9.25%"},
+          {"Site ID":"2", "Turbine ID":"1", "Average Voltage":"1.7", "Average Temperature":"83.87","Percent Down Time":"14.57%"},
+          {"Site ID":"3", "Turbine ID":"5", "Average Voltage":"1.6", "Average Temperature":"80.98","Percent Down Time":"8.04%"}]'
+         striped="true" filterable="true">
+         <px-data-table-column name="Site ID" type="string" filterable="true" sortable="true"></px-data-table-column>
+         <px-data-table-column name="Turbine ID" type="string" filterable="true" sortable="true"></px-data-table-column>
+         <px-data-table-column name="Average Voltage" type="string" filterable="true" sortable="true"></px-data-table-column>
+         <px-data-table-column name="Average Temperature" type="string" filterable="true" sortable="true"></px-data-table-column>
+         <px-data-table-column name="Percent Down Time" type="string" filterable="true" sortable="true"></px-data-table-column> 
        </px-data-table>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

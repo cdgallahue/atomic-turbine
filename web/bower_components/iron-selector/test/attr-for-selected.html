@@ -87,20 +87,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       var selector;
       var items;
 
-<<<<<<< HEAD
       setup(function () {
         selector = fixture('inlineAttributes');
         items = Array.prototype.slice.apply(selector.querySelectorAll('div[some-attr]'));
-=======
-      setup(function(done) {
-        selector = fixture('inlineAttributes');
-        items = Array.prototype.slice.apply(selector.querySelectorAll('div[some-attr]'));
-
-        selector.addEventListener('iron-items-changed', function onIronItemsChanged() {
-          selector.removeEventListener('iron-items-changed', onIronItemsChanged);
-          done();
-        });
->>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
       });
 
       test('selecting value programatically selects correct item', function() {
@@ -120,24 +109,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       var selector;
       var items;
 
-<<<<<<< HEAD
       setup(function () {
-=======
-      setup(function(done) {
->>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
         selector = fixture('reflectedProperties');
         items = Array.prototype.slice.apply(selector.querySelectorAll('attr-reflector'));
         for (var i = 0; i < items.length; i++) {
           items[i].someAttr = "value" + i;
         }
-<<<<<<< HEAD
-=======
-
-        selector.addEventListener('iron-items-changed', function onIronItemsChanged() {
-          selector.removeEventListener('iron-items-changed', onIronItemsChanged);
-          done();
-        });
->>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
       });
 
       test('selecting value programatically selects correct item', function() {
@@ -157,24 +134,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       var selector;
       var items;
 
-<<<<<<< HEAD
       setup(function () {
-=======
-      setup(function(done) {
->>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
         selector = fixture('mixedPropertiesAndAttributes');
         items = Array.prototype.slice.apply(selector.querySelectorAll('attr-reflector, div[some-attr]'));
         for (var i = 0; i < items.length; i++) {
           items[i].someAttr = "value" + i;
         }
-<<<<<<< HEAD
-=======
-
-        selector.addEventListener('iron-items-changed', function onIronItemsChanged() {
-          selector.removeEventListener('iron-items-changed', onIronItemsChanged);
-          done();
-        });
->>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
       });
 
       test('selecting value programatically selects correct item', function() {
@@ -208,20 +173,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       var selector;
       var items;
 
-<<<<<<< HEAD
       setup(function () {
         selector = fixture('defaultAttribute');
         items = Array.prototype.slice.apply(selector.querySelectorAll('div[some-attr]'));
-=======
-      setup(function(done) {
-        selector = fixture('defaultAttribute');
-        items = Array.prototype.slice.apply(selector.querySelectorAll('div[some-attr]'));
-
-        selector.addEventListener('iron-items-changed', function onIronItemsChanged() {
-          selector.removeEventListener('iron-items-changed', onIronItemsChanged);
-          done();
-        });
->>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
       });
 
       test('setting non-existing value sets default', function() {
@@ -232,13 +186,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       test('setting non-existing value sets default', function() {
         selector.multi = true;
-<<<<<<< HEAD
         selector.select(['non-existing-value']);
         assert.deepEqual(selector.selectedValues, ['default']);
-=======
-        selector.select('non-existing-value');
-        assert.deepEqual(selector.selectedValues, ['default', 'non-existing-value']);
->>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
         assert.deepEqual(selector.selectedItems, [items[2]]);
       });
 
@@ -255,11 +204,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         assert.equal(selector.selectedItem, undefined);
         selector.multi = true;
         selector.selectedValues = ['non-existing-value'];
-<<<<<<< HEAD
         assert.deepEqual(selector.selectedItems, [undefined]);
-=======
-        assert.deepEqual(selector.selectedItems, []);
->>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
         selector.fallbackSelection = 'default';
         assert.deepEqual(selector.selectedItems, [items[2]]);
       });
