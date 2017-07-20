@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 from flask import Flask, make_response, render_template
 from flask_cors import CORS, cross_origin
 
@@ -8,7 +9,8 @@ cors = CORS(app)
 @app.route('/')
 @cross_origin(origin='localhost',headers=['Content-Type','Authorization'])
 def show_indiv_data():
-    return render_template('indiv_turbine.html')
+	timestamp = str(datetime.now())
+    	return render_template('indiv_turbine.html', timestamp=timestamp)
 
 def add_headers(response):
     """

@@ -15,7 +15,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <template>
 
     <iron-selector id="selector" selected="{{selected}}" selectable="[[selectable]]" attr-for-selected="id">
+<<<<<<< HEAD
+      <content></content>
+=======
       <slot></slot>
+>>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
     </iron-selector>
 
   </template>
@@ -37,11 +41,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         notify: true
       }
 
+<<<<<<< HEAD
+    }
+=======
     },
 
     get selector() {
       return this.$.selector;
     },
+>>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
 
   });
 

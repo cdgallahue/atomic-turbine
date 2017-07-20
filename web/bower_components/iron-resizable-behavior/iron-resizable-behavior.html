@@ -61,7 +61,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     },
 
     attached: function() {
+<<<<<<< HEAD
+      this.fire('iron-request-resize-notifications', null, {
+        node: this,
+        bubbles: true,
+        cancelable: true
+      });
+
+      if (!this._parentResizable) {
+        window.addEventListener('resize', this._boundNotifyResize);
+        this.notifyResize();
+      }
+=======
       this._requestResizeNotifications();
+>>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
     },
 
     detached: function() {
@@ -146,7 +159,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     },
 
     _onIronRequestResizeNotifications: function(event) {
+<<<<<<< HEAD
+      var target = event.path ? event.path[0] : event.target;
+
+=======
       var target = /** @type {!EventTarget} */ (Polymer.dom(event).rootTarget);
+>>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
       if (target === this) {
         return;
       }
@@ -179,6 +197,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       this._notifyingDescendant = true;
       descendant.notifyResize();
       this._notifyingDescendant = false;
+<<<<<<< HEAD
+    }
+  };
+</script>
+
+=======
     },
     
     _requestResizeNotifications: function() {
@@ -212,3 +236,4 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
   };
 </script>
+>>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c

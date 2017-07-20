@@ -57,14 +57,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
   </test-fixture>
 
+<<<<<<< HEAD
+  <!--
+  NOTE(cdata): Enable test-fixture when polymer/polymer#2495 is resolved
+  -->
+  <!--<test-fixture id="repeatedItems">
+    <template>-->
+      <iron-selector multi id="repeatedItems">
+=======
   <test-fixture id="repeatedItems-polymer1">
     <template>
       <iron-selector multi>
+>>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
         <template is="dom-repeat" items='["foo", "bar", "baz"]'>
           <div>[[item]]</div>
         </template>
         <div>vim</div>
       </iron-selector>
+<<<<<<< HEAD
+    <!--</template>
+  </test-fixture>-->
+=======
     </template>
   </test-fixture>
 
@@ -80,6 +93,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </iron-selector>
     </template>
   </test-fixture>
+>>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
 
   <script>
 
@@ -87,6 +101,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       var s;
 
+<<<<<<< HEAD
+      setup(function () {
+        s = fixture('test');
+        t = Polymer.dom(s).querySelector('[is="dom-repeat"]');
+=======
       setup(function(done) {
         s = fixture('test');
 
@@ -94,6 +113,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           s.removeEventListener('iron-items-changed', onIronItemsChanged);
           done();
         });
+>>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
       });
 
       test('honors the multi attribute', function() {
@@ -101,7 +121,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
 
       test('has sane defaults', function() {
+<<<<<<< HEAD
+        assert.equal(s.selectedValues, undefined);
+=======
         assert.deepEqual(s.selectedValues, []);
+>>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
         assert.equal(s.selectedClass, 'iron-selected');
         assert.equal(s.items.length, 5);
       });
@@ -283,6 +307,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
 
       test('selects from items created by dom-repeat', function(done) {
+<<<<<<< HEAD
+        var selectEventCounter = 0;
+        var firstChild;
+
+        s = document.querySelector('#repeatedItems');
+        s.addEventListener('iron-select', function(e) {
+          selectEventCounter++;
+        });
+
+        // NOTE(cdata): I guess `dom-repeat` doesn't stamp synchronously..
+        Polymer.Base.async(function() {
+          firstChild = Polymer.dom(s).querySelector('div');
+          MockInteractions.tap(firstChild);
+
+          assert.equal(s.selectedItems[0].textContent, 'foo');
+=======
         var selector;
         var domRepeat;
         if (Polymer.Element) {
@@ -306,10 +346,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           MockInteractions.tap(firstChild);
 
           assert.equal(selector.selectedItems[0].textContent, 'foo');
+>>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
           done();
         });
       });
 
+<<<<<<< HEAD
+      test('updates selection when dom changes', function(done) {
+        var selectEventCounter = 0;
+
+        s = fixture('test');
+
+        Polymer.Base.async(function() {
+          var firstChild = Polymer.dom(s).querySelector(':first-child');
+          var lastChild = Polymer.dom(s).querySelector(':last-child');
+
+          MockInteractions.tap(firstChild);
+          MockInteractions.tap(lastChild);
+
+          expect(s.selectedItems.length).to.be.equal(2);
+
+          Polymer.dom(s).removeChild(lastChild);
+
+          Polymer.dom.flush();
+
+          expect(s.selectedItems.length).to.be.equal(1);
+          expect(s.selectedItems[0]).to.be.equal(firstChild);
+
+          done();
+        });
+
+=======
       test('updates selection when dom changes', function() {
         var firstChild = Polymer.dom(s).querySelector(':first-child');
         var lastChild = Polymer.dom(s).querySelector(':last-child');
@@ -327,11 +394,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         expect(s.selectedItems.length).to.be.equal(1);
         expect(s.selectedItems[0]).to.be.equal(firstChild);
+>>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
       });
 
       suite('`select()` and `selectIndex()`', function() {
         var selector;
 
+<<<<<<< HEAD
+        setup(function() {
+          selector = fixture('valueById');
+=======
         setup(function(done) {
           selector = fixture('valueById');
 
@@ -339,6 +411,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             selector.removeEventListener('iron-items-changed', onIronItemsChanged);
             done();
           });
+>>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
         });
 
         test('`select()` selects an item with the given value', function() {

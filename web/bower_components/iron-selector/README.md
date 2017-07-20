@@ -1,9 +1,30 @@
+<<<<<<< HEAD
+
+<!---
+
+This README is automatically generated from the comments in these files:
+iron-multi-selectable.html  iron-selectable.html  iron-selector.html
+
+Edit those files, and our readme bot will duplicate them over here!
+Edit this file, and the bot will squash your changes :)
+
+The bot does some handling of markdown. Please file a bug if it does the wrong
+thing! https://github.com/PolymerLabs/tedium/issues
+
+-->
+
+=======
+>>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
 [![Build status](https://travis-ci.org/PolymerElements/iron-selector.svg?branch=master)](https://travis-ci.org/PolymerElements/iron-selector)
 
 _[Demo and API docs](https://elements.polymer-project.org/elements/iron-selector)_
 
 
+<<<<<<< HEAD
+##&lt;iron-selector&gt;
+=======
 ## &lt;iron-selector&gt;
+>>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
 
   `iron-selector` is an element which can be used to manage a list of elements
   that can be selected.  Tapping on the item will make the item selected.  The `selected` indicates
@@ -70,6 +91,13 @@ _[Demo and API docs](https://elements.polymer-project.org/elements/iron-selector
   </iron-selector>
 ```
 
+<<<<<<< HEAD
+
+
+<!-- No docs for Polymer.IronMultiSelectableBehavior found. -->
+
+<!-- No docs for Polymer.IronSelectableBehavior found. -->
+=======
 ### Notable breaking changes between 1.x and 2.x (hybrid):
 
 #### IronSelectableBehavior
@@ -99,3 +127,4 @@ _[Demo and API docs](https://elements.polymer-project.org/elements/iron-selector
 - `selectedValues` and `selectedItems` now have empty arrays as default
   values. This may cause bindings or observers of these properties to
   trigger at start up when they previously had not.
+>>>>>>> 9a5f2333f879c30fa30c21b85de212b3c32cbd9c
